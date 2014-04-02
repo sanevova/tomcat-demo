@@ -7,7 +7,7 @@ import java.sql.SQLException;
 /**
  * Created by Vladimir Mishatkin on 02.04.2014.
  */
-public abstract class EntityDAOImplBase {
+public abstract class BaseDAOImpl {
 	protected Connection connection;
 
 	protected void initConnection() {

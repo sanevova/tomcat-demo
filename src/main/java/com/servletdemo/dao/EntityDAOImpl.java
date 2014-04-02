@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Created by Vladimir Mishatkin on 02.04.2014.
  */
-public class EntityDAOImpl extends EntityDAOImplBase
+public class EntityDAOImpl extends BaseDAOImpl
 		implements EntityDAO {
 
 	private static final String TABLE_NAME = "table1";
