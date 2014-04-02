@@ -16,19 +16,18 @@ public abstract class BaseDAOImpl {
 		}
 	}
 
-	protected Connection connection;
-
-	protected void initConnection() {
-		connection = null;
+	protected Connection initConnection() {
+		Connection connection = null;
 		try {
 			connection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "DAVID", "asdzxc");
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.err.println("Could not connect");
 		}
+		return connection;
 	}
 
-	protected void closeConnection() {
+	protected void closeConnection(Connection connection) {
 		if (connection != null) {
 			try {
 				connection.close();
