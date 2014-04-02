@@ -28,7 +28,7 @@
 			<configuration>
 				<url>http://127.0.0.1:8081/manager</url>
 				<server>TomcatServer</server>
-				<path>/myApp</path>
+				<!--<path>/Titled-1.0</path>-->
 				<warFile>target/Titled-1.0.war</warFile>
 			</configuration>
 			</plugin>
@@ -37,8 +37,8 @@
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
+					<source>1.7</source>
+					<target>1.7</target>
 				</configuration>
 			</plugin>
 
