@@ -16,11 +16,6 @@ public class ServletDemo extends HttpServlet {
 	@Override
 	public void init() throws ServletException {
 		super.init();
-		try {
-			Class.forName ("oracle.jdbc.OracleDriver");
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
 	}
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response)

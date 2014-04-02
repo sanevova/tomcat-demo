@@ -8,6 +8,14 @@ import java.sql.SQLException;
  * Created by Vladimir Mishatkin on 02.04.2014.
  */
 public abstract class BaseDAOImpl {
+	static {
+		try {
+			Class.forName ("oracle.jdbc.OracleDriver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+
 	protected Connection connection;
 
 	protected void initConnection() {
