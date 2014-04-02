@@ -1,7 +1,5 @@
 package com.servletdemo;
 
-import com.servletdemo.dao.Entity;
-import com.servletdemo.dao.EntityColumnTypeException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -40,15 +38,11 @@ public class ServletDemo extends HttpServlet {
 			}
 			ResultSet resultSet = statement.getResultSet();
 			while(resultSet.next()) {
-				Entity entity = new Entity(resultSet);
-				out.print(resultSet.getInt(1) + "-" + entity.getIntAt(1) + "\t");
-				out.println(resultSet.getString(2) + "-" + entity.getStringAt(2) + "<br/>");
+				out.print(resultSet.getInt(1) + "\t");
+				out.println(resultSet.getString(2) + "<br/>");
 			}
 		} catch (SQLException e) {
 			out.print(e.getMessage());
-			e.printStackTrace();
-		} catch (EntityColumnTypeException e) {
-			out.print("Wrong column type for entity.<br/>");
 			e.printStackTrace();
 		} finally {
 			if (connection != null) {
