@@ -3,6 +3,7 @@ package com.servletdemo.dao;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  * Created by Vladimir Mishatkin on 02.04.2014.
@@ -34,6 +35,17 @@ public abstract class BaseDAOImpl {
 			} catch (SQLException e) {
 				e.printStackTrace();
 				System.err.print("Could not close");
+			}
+		}
+	}
+
+	protected void closeStatement(Statement statement) {
+		if (statement != null) {
+			try {
+				statement.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+				System.err.print("Could not close statement");
 			}
 		}
 	}

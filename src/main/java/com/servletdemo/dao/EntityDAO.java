@@ -8,5 +8,5 @@ import java.util.List;
 public interface EntityDAO {
 	public Entity getEntity(int index);
 	public List<Entity> getAll();
-	public void saveEntity(Entity entity);
+	public void saveEntity(Entity entity) throws Exception;
 }
