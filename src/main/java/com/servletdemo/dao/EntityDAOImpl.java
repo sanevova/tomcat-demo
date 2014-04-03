@@ -1,9 +1,6 @@
 package com.servletdemo.dao;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -22,11 +19,12 @@ public class EntityDAOImpl extends BaseDAOImpl
 	@Override
 	public Entity getEntity(int id) {
 		Connection connection = initConnection();
-		Statement statement = null;
+		PreparedStatement statement = null;
 		Entity retValue = null;
 		try {
-			statement = connection.createStatement();
-			statement.execute("SELECT * FROM "+ TABLE_NAME + " WHERE id = " + id);
+			statement = connection.prepareStatement("SELECT * FROM " + TABLE_NAME + " WHERE id = ?");
+			statement.setInt(1, id);
+			statement.execute();
 			ResultSet rs = statement.getResultSet();
 			rs.next();
 			retValue = new Entity(rs.getInt(1), rs.getString(2));
@@ -42,11 +40,11 @@ public class EntityDAOImpl extends BaseDAOImpl
 	@Override
 	public List<Entity> getAll() {
 		Connection connection = initConnection();
-		Statement statement = null;
+		PreparedStatement statement = null;
 		List<Entity> retValue = new LinkedList<>();
 		try {
-			statement = connection.createStatement();
-			statement.execute("SELECT * FROM "+ TABLE_NAME);
+			statement = connection.prepareStatement("SELECT * FROM "+ TABLE_NAME);
+			statement.execute();
 			ResultSet rs = statement.getResultSet();
 			while (rs.next()) {
 				retValue.add(new Entity(rs.getInt(1), rs.getString(2)));
@@ -63,21 +61,26 @@ public class EntityDAOImpl extends BaseDAOImpl
 	@Override
 	public void saveEntity(Entity entity) throws Exception {
 		Connection connection = initConnection();
-		Statement statement = null;
+		PreparedStatement statement = null;
 		try {
-			statement = connection.createStatement();
 			String sql;
 			if (entity.getId() > 0) {
-				sql = "UPDATE " +TABLE_NAME + " SET name =\'" + entity.getName() + "\' WHERE id = " + entity.getId();
-				statement.executeUpdate(sql);
+				sql = "UPDATE " +TABLE_NAME + " SET name = ? WHERE id = ?";
+				statement = connection.prepareStatement(sql);
+				statement.setString(1, entity.getName());
+				statement.setInt(2, entity.getId());
+				statement.executeUpdate();
 			} else {
-				statement.execute("SELECT " + ID_SEQUENCE_NAME + ".nextval FROM DUAL");
-				ResultSet rs = statement.getResultSet();
+				PreparedStatement tempStatement = connection.prepareStatement("SELECT " + ID_SEQUENCE_NAME + ".nextval FROM DUAL");
+				tempStatement.execute();
+				ResultSet rs = tempStatement.getResultSet();
 				rs.next();
 				int nextValue = rs.getInt(1);
-				sql = "INSERT INTO " + TABLE_NAME + "(id, name) VALUES (" +
-						nextValue + ", \'" + entity.getName() + "\')";
-				statement.execute(sql);
+				sql = "INSERT INTO " + TABLE_NAME + "(id, name) VALUES (?, ?)";
+				statement = connection.prepareStatement(sql);
+				statement.setInt(1, nextValue);
+				statement.setString(2, entity.getName());
+				statement.execute();
 			}
 			if (statement.getUpdateCount() == 0) {
 				throw new Exception("Did not update any rows");
