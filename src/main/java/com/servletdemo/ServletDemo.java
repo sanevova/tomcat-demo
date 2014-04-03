@@ -24,14 +24,17 @@ public class ServletDemo extends HttpServlet {
 		}
 	}
 
+	private EntityDAO dao;
+
 	@Override
 	public void init() throws ServletException {
 		super.init();
+		dao = new EntityDAOImpl();
 	}
 
 	private void printHtmlSubmitForm(PrintWriter out) {
 		out.println("<form action=\"demo\" method = \"post\">");
-		out.println("Name: <input type=\"text\" name=\"input_name\"><br/>");
+		out.println("Name: <input type=\"text\" name=\"input_name\">");
 		out.println("<button type=\"submit\" value=\"AddValue\" formmethod=\"post\">Add</button><br/>");
 		out.println("</form>");
 	}
@@ -44,7 +47,6 @@ public class ServletDemo extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		out.print("<html><body>");
 		String name = request.getParameter("input_name");
-		EntityDAO dao = new EntityDAOImpl();
 		out.println("Did");
 		try {
 			dao.saveEntity(new Entity(7, name));
