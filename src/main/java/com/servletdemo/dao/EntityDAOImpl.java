@@ -79,7 +79,6 @@ public class EntityDAOImpl extends BaseDAOImpl
 						nextValue + ", \'" + entity.getName() + "\')";
 				statement.execute(sql);
 			}
-			System.err.print(statement.getUpdateCount());
 			if (statement.getUpdateCount() == 0) {
 				throw new Exception("Did not update any rows");
 			}
