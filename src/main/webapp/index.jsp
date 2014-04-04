@@ -9,10 +9,16 @@
  <%--! Entity folk; --%>
 <html>
 <body>qwe<br/>
-<%! List<Entity> allFolks; %>
 <%
-allFolks = (List<Entity>) request.getAttribute("folks");
+List<Entity> allFolks = (List<Entity>) request.getAttribute("folks");
+String themessage = (String) request.getAttribute("message");
+for (int i = 0; i < allFolks.size(); ++i) {
+	out.println(allFolks.get(i).getName() + "<br/>");
+}
+out.println(themessage);
 %>
+<%--= request.getAttribute("message") --%>
+<c:out value = "${themessage}"/>
 <c:forEach var="i" begin="1" end="5">
    Item <c:out value="${i}"/><br/>
 </c:forEach>

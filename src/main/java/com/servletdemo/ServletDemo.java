@@ -53,11 +53,18 @@ public class ServletDemo extends HttpServlet {
 		out.println("<body>qwe<br/>");
 		List<Entity> allFolks = dao.getAll();
 		request.setAttribute("folks", allFolks);
+		request.setAttribute("message", "Waddup");
 		for (Entity folk : allFolks) {
 			out.println(folk.getId() + " " + folk.getName() + "<br/>");
 		}
 		printHtmlSubmitForm(out);
 		out.println("</body>");
 		out.println("</html>");
+		try {
+			request.getRequestDispatcher("index.jsp").forward(request,response);
+		} catch (ServletException e) {
+			out.println(e.getMessage());
+			out.println(e.getStackTrace());
+		}
 	}
 }
