@@ -47,24 +47,10 @@ public class ServletDemo extends HttpServlet {
 	}
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws IOException {
-		PrintWriter out = response.getWriter();
-		out.println("<html>");
-		out.println("<body>qwe<br/>");
+			throws IOException, ServletException {
 		List<Entity> allFolks = dao.getAll();
 		request.setAttribute("folks", allFolks);
 		request.setAttribute("message", "Waddup");
-		for (Entity folk : allFolks) {
-			out.println(folk.getId() + " " + folk.getName() + "<br/>");
-		}
-		printHtmlSubmitForm(out);
-		out.println("</body>");
-		out.println("</html>");
-		try {
-			request.getRequestDispatcher("index.jsp").forward(request,response);
-		} catch (ServletException e) {
-			out.println(e.getMessage());
-			out.println(e.getStackTrace());
-		}
+		request.getRequestDispatcher("index.jsp").forward(request,response);
 	}
 }
