@@ -18,7 +18,7 @@ import java.util.List;
 public class ServletDemo extends HttpServlet {
 	static {
 		try {
-			Class.forName ("oracle.jdbc.OracleDriver");
+			Class.forName("oracle.jdbc.OracleDriver");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -33,29 +33,17 @@ public class ServletDemo extends HttpServlet {
 	}
 
 	private void printHtmlSubmitForm(PrintWriter out) {
-		out.println("<form action=\"demo\" method = \"post\">");
+		out.println("<form action=\"other\" method = \"post\">");
 		out.println("Name: <input type=\"text\" name=\"input_name\">");
 		out.println("<button type=\"submit\" value=\"AddValue\" formmethod=\"post\">Add</button><br/>");
 		out.println("</form>");
 	}
 
 	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		super.doPost(request, response);
-//		response.setContentType("text/html");
-//		response.setStatus(HttpServletResponse.SC_TEMPORARY_REDIRECT);
-		PrintWriter out = response.getWriter();
-		out.print("<html><body>");
-		String name = request.getParameter("input_name");
-		out.println("Did");
-		try {
-			dao.saveEntity(new Entity(7, name));
-		} catch (Exception e) {
-			out.println(" not");
-		}
-		out.println(" save " + name + "<br/>");
-		out.println("<form method = \"get\"><button type=\"submit\" value=\"OKValue\" formmethod=\"get\">OK</button></form><br/>");
-		out.println("</body></html>");
+	protected void service(HttpServletRequest request, HttpServletResponse resp) throws ServletException, IOException {
+		super.service(request, resp);
+		List<Entity> allFolks = dao.getAll();
+		request.setAttribute("folks", allFolks);
 	}
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -64,8 +52,9 @@ public class ServletDemo extends HttpServlet {
 		out.println("<html>");
 		out.println("<body>qwe<br/>");
 		List<Entity> allFolks = dao.getAll();
+		request.setAttribute("folks", allFolks);
 		for (Entity folk : allFolks) {
-			out.println(folk.getId() + " " + folk.getName());
+			out.println(folk.getId() + " " + folk.getName() + "<br/>");
 		}
 		printHtmlSubmitForm(out);
 		out.println("</body>");

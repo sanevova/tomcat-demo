@@ -8,9 +8,24 @@ http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
 		<servlet-name>Servlet Name For Demo1</servlet-name>
 		<servlet-class>com.servletdemo.ServletDemo</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>Other Name For Demo1</servlet-name>
+		<servlet-class>com.servletdemo.ServletZwei</servlet-class>
+	</servlet>
+
 
 	<servlet-mapping>
 		<servlet-name>Servlet Name For Demo1</servlet-name>
 		<url-pattern>/demo</url-pattern>
 	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Other Name For Demo1</servlet-name>
+		<url-pattern>/other</url-pattern>
+	</servlet-mapping>
+
+
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+
 </web-app>
