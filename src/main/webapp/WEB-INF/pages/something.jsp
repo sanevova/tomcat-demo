@@ -6,6 +6,7 @@
  <%! int i = 0; %>
 <html>
 <body>qwe<br/>
+<c:out value = "${controllerMessage}"/><br/>
 <c:out value = "${message}"/><br/>
 <c:forEach items="${folks}" var="folk">
     <c:out value = "${folk.id} - ${folk.name}"/><br/>

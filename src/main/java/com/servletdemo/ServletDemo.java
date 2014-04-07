@@ -51,6 +51,6 @@ public class ServletDemo extends HttpServlet {
 		List<Entity> allFolks = dao.getAll();
 		request.setAttribute("folks", allFolks);
 		request.setAttribute("message", "Waddup");
-		request.getRequestDispatcher("index.jsp").forward(request,response);
+//		request.getRequestDispatcher("index.jsp").forward(request,response);
 	}
 }
